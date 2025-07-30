@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'school.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # mysql - oracle - postgresql - sql server
+        'ENGINE': 'django.db.backends.sqlite3', # mysql - postgresql (multi tenancy) 
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -91,9 +91,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
