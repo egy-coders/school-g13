@@ -1,0 +1,23 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %} {{page_title}} {% endblock %}
+{% block content %}
+<h1>Courses</h1>
+<div class="container p-4 d-flex justify-content-center">
+    <div class="row">
+        {% for course in courses %}
+        <div class="col-6">
+            <div class="card" style="width: 18rem;">
+                <img src="{{course.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{course.title}}</h5>
+                    <p class="card-text">{{course.description}}</p>
+                    <p>Price: {{course.price}}$</p>
+                    <a href="#" class="btn btn-primary">Course Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

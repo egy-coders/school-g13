@@ -1,0 +1,37 @@
+Create Virtual environment
+# python -m venv venv
+
+--------------------------
+activate to this virtual environment
+# venv\Scripts\activate
+using cmd
+-------------------------
+
+install packages
+pip install django
+------------------------
+create project (school)
+django-admin startproject school .
+create on same (current) folder
+------------------------
+create core app
+py manage.py startapp core
+
+------------------------
+register app settings.py
+installed_apps
+------------------------
+test server
+py manage.py runserver
+http://localhost:8000
+
+
+-------------------
+MVT
+Models - Views (controller) - Templates (HTML)
+
+MVC Models - Views - Controllers
+
+-------------------
+
+DTL (Django Templating Language) jinja templates
