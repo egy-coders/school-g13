@@ -64,10 +64,30 @@ Omar (CCNA - Python - C++)
 class Student(models.Model):
     name = models.CharField(max_length=200)
     dob = models.DateField()
-    courses = models.ManyToManyField(Course) # Enrollments
+    courses = models.ManyToManyField(Course, through='Enrollment')
+
+    """
+    # Student - Course (M2M) 2 relations 1 -> *
+        student_courses (Omar - Python - 94 | Omar - C++ - 85)
+    """
 
     def __str__(self):
         return f"{self.name}"
+    
+    """
+    Omar - Python - scroe: 94
+    """
+
+class Enrollment(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    scroe = models.SmallIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.student} | {self.course} | {self.scroe}%"
+    
+    class Meta:
+        unique_together = ['student', 'course']
 
 # class User(models.Model):
 #     username = 
