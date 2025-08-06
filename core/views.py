@@ -1,5 +1,7 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from .models import *
+from .forms import CourseForm
 # from django.shortcuts import HttpResponse
 
 # def home(request): # http request
@@ -78,28 +80,43 @@ def contact(request):
     
     return render(request, 'contact.html', context)
 
+# List Courses
 def courses(request):
-    courses = [
-        {
-            'id':1,
-            'title':'Python for begginers',
-            'description': 'Some description for python courses ',
-            'price':220,
-            'featured':True
-        },
-        {
-            'id':2,
-            'title':'OOP using Java',
-            'description': 'Some description for Java programming language courses ',
-            'price':120,
-            'featured':False,
-        },
-    ]
+    courses = Course.objects.all()
     context = {
         'page_title':'Courses',
         'courses':courses
     }
     return render(request, 'courses.html', context)
+
+# Single Course # 
+def course(request, course_id):
+    course = get_object_or_404(Course, id=course_id) # single object
+    context = {
+        'page_title':course.title,
+        'course':course
+    }
+    return render(request, 'course_details.html', context)
+    
+# Create Course
+def create_course(request):
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid(): # not only for validation rules but form not crashed
+            return HttpResponse(form.cleaned_data.items())
+        else:
+            return HttpResponse("error in submitting")
+    else:
+        form = CourseForm()
+    context = {
+        'page_title':'Create Course',
+        'form':form
+    }
+    return render(request, 'create_course.html', context)
+
+# Update Course
+
+# Delete Course
 
 
 def faqs(request):

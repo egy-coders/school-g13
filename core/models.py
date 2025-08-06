@@ -46,6 +46,8 @@ class Course(models.Model): # Courses Table in database core_course
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00) # 159.99 $ | Decimals digits
     pub_date = models.DateField(null=True, blank=True)
 
+    image = models.ImageField(upload_to='courses', default='default.png', blank=True) # png, jpg | max_size: 2MB
+
     class Meta: # options 
         # db_table = 'my_courses'
         verbose_name = 'Course'
@@ -65,6 +67,7 @@ class Student(models.Model):
     name = models.CharField(max_length=200)
     dob = models.DateField()
     courses = models.ManyToManyField(Course, through='Enrollment')
+    image = models.ImageField(upload_to='students', default='avatar.png')
 
     """
     # Student - Course (M2M) 2 relations 1 -> *

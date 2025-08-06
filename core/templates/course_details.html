@@ -1,0 +1,19 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}{{page_title}}{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center p-4">
+    <div class="card col-6">
+        <div class="card-body">
+            {% if course.image %}
+            <img src="{{course.image.url}}" alt="course-image" width="50%">
+            <h4>{{course.title}}</h4>
+            <hr>
+            {{course.description}}
+            <p>{{course.price}}$</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

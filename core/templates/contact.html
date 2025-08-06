@@ -2,15 +2,23 @@
 {% block title %} {{page_title}} {% endblock %}
 {% block content %}
 <h1>Contact Us</h1>
-<br>
-<form action="">
-    <div>
-        <label for="name">Your Name</label>
-        <input type="text" placeholder="Enter Your Name">
+<div class="container d-flex justify-content-center p-5">
+    <div class="container">
+        <form action="">
+            <div>
+                <label for="name">Username</label>
+                <input type="text" placeholder="Enter Your Name">
+            </div>
+            <div>
+                <label for="name">Your Message</label>
+                <textarea name="message" id="" rows="2" placeholder="Enter Your Message"></textarea>
+            </div>
+            <div>
+                <label for="name">Your Message</label>
+                <select name="" id=""></select>
+            </div>
+        </form>
     </div>
-    <div>
-        <label for="name">Your Message</label>
-        <textarea name="message" id="" rows="2" placeholder="Enter Your Message"></textarea>
-    </div>
-</form>
+    <br>
+</div>
 {% endblock %}
