@@ -8,7 +8,11 @@
     <div class="card col-6">
         <div class="card-body">
             {% if course.image %}
-            <img src="{{course.image.url}}" alt="course-image" width="50%">
+            <img src="{{course.image.url}}" class="card-img-top" alt="..." width="50">
+            {% else %}
+            <img src="{% static 'img/default.png' %}" class="card-img-top" alt="...">
+            {% endif %}
+
             <h4>{{course.title}}</h4>
             <hr>
             {{course.description}}

@@ -76,11 +76,32 @@ WSGI_APPLICATION = 'school.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import pymysql
+pymysql.install_as_MySQLdb()
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # mysql - postgresql (multi tenancy) 
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE' : 'django.db.backends.sqlite3',
+        'NAME' : BASE_DIR / 'db.sqlite3'
     }
+    # Postgresql
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql', # mysql - postgresql (multi tenancy) 
+    #     'NAME': 'myschool', # Database Name
+    #     'USER': 'postgres',
+    #     'PASSWORD' : '123',
+    #     'HOST': 'localhost',
+    #     'PORT' : '5432'
+    # }
+    # MySql
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql', # mysql - postgresql (multi tenancy) 
+    #     'NAME': 'school', # Database Name
+    #     'USER': 'root',
+    #     'PASSWORD' : '1234',
+    #     'HOST': 'localhost',
+    #     'PORT' : '3306'
+    # }
 }
 
 

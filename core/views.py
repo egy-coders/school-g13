@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import CourseForm
+from .forms import *
+
 # from django.shortcuts import HttpResponse
 
 # def home(request): # http request
@@ -80,6 +81,15 @@ def contact(request):
     
     return render(request, 'contact.html', context)
 
+def cats(request):
+    cats = Category.objects.all()
+    context = {
+        'page_title' : 'Categories',
+        'name' : 'Omar',
+        'cats':cats
+    }
+    return render(request, "cats.html", context)
+
 # List Courses
 def courses(request):
     courses = Course.objects.all()
@@ -100,16 +110,20 @@ def course(request, course_id):
     
 # Create Course
 def create_course(request):
+    cats = Category.objects.all()
+
     if request.method == 'POST':
-        form = CourseForm(request.POST)
-        if form.is_valid(): # not only for validation rules but form not crashed
-            return HttpResponse(form.cleaned_data.items())
-        else:
-            return HttpResponse("error in submitting")
+        form = CourseForm(request.POST, request.FILES)
+        if form.is_valid():
+            # print(form.cleaned_data.items)
+            form.save()
+        return redirect('courses')
     else:
         form = CourseForm()
+    
     context = {
         'page_title':'Create Course',
+        'cats':cats,
         'form':form
     }
     return render(request, 'create_course.html', context)

@@ -1,0 +1,36 @@
+{% extends 'layout/base.html' %}
+{% block title %} {{page_title}} {% endblock %}
+{% block content %}
+
+<div class="container p-5">
+    <h3>Categories</h3>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">No. Courses</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cat in cats %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{cat.name}}</td>
+                <td>
+                        {% for course in cat.courses.all %}
+                        <a href="{% url 'course' course.id %}" style="text-decoration: none;">
+                            <li>
+                                <p>{{course.title}}</p>
+                            </li>
+                        </a>
+                    
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

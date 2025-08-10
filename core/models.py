@@ -26,7 +26,7 @@ many-to-many
 
 class Category(models.Model):
     name = models.CharField(max_length=150, unique=True) # #1 Web Developement (Django - ReactJs - ...) - #2 Data Science - #3 Marketing
-
+    
     class Meta:
         verbose_name_plural = 'Categories' # Categroys 
 
@@ -42,8 +42,8 @@ class Course(models.Model): # Courses Table in database core_course
     cat = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='courses') # one-to-many (Web Develope | Networking) | cat_id = 1 , 2 , 3
     title = models.CharField(max_length=200, unique=True) # default (required) not nullable | string
     description = models.TextField() # Big string
-    level = models.CharField(choices=LEVEL_CHOICES)
-    price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00) # 159.99 $ | Decimals digits
+    level = models.CharField(max_length=200, choices=LEVEL_CHOICES)
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00, null=True, blank=True) # 159.99 $ | Decimals digits
     pub_date = models.DateField(null=True, blank=True)
 
     image = models.ImageField(upload_to='courses', default='default.png', blank=True) # png, jpg | max_size: 2MB
