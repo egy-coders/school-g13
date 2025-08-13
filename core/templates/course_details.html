@@ -7,6 +7,9 @@
 <div class="container d-flex justify-content-center p-4">
     <div class="card col-6">
         <div class="card-body">
+            {% if course.featured %}
+            <h1><span class="badge bg-success">Featured</span></h1>
+            {% endif %}
             {% if course.image %}
             <img src="{{course.image.url}}" class="card-img-top" alt="..." width="50">
             {% else %}
@@ -16,8 +19,15 @@
             <h4>{{course.title}}</h4>
             <hr>
             {{course.description}}
-            <p>{{course.price}}$</p>
+            <p>Price:{{course.price}}$</p>
+            <p>Publish on: {{course.pub_date}}</p>
+        </div>
+        <div class="p-1 text-end">
+            <a href="{% url 'update_course' course.id %}" class="btn btn-success">Update</a>
+            <a href="{% url 'delete_course' course.id %}" class="btn btn-danger">Delete</a>
+
         </div>
     </div>
+
 </div>
 {% endblock content %}

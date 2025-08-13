@@ -17,6 +17,17 @@
 
 <body>
     {% include 'layout/partials/_header.html' %}
+
+    {% if messages %}
+    <div class="container col-6">
+        {% for message in messages %}
+        <div class="alert {% if message.tags == 'error' %}alert-danger {% else %} alert-{{message.tags}} {% endif %} alert-dismissible" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <hr>
     {% block content %}
     {% endblock %}

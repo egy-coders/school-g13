@@ -1,0 +1,44 @@
+{% extends 'layout/base.html' %}
+{% block title %} {{page_title}} {% endblock %}
+{% block content %}
+
+<div class="container p-5">
+
+    {% if course %}
+    <h3 class="text-success">{{course.title}}</h3>
+    {% else %}
+    <h3>Create Course</h3>
+    {% endif %}
+    <hr>
+
+    <div class="container d-flex justify-content-center">
+        <form method="post" class="row col-7" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="my-2">
+                {{field.label}}
+                {{field}}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <span class="text-danger small">{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% if course %}
+            <button type="submit" class="btn btn-success">Update</button>
+            {% else %}
+            <button type="submit" class="btn btn-primary">Add</button>
+            {% endif %}
+            {% if messages.errors %}
+            <ul>
+                {% for error in messages.errors %}
+                <li class="text-danger">{{error}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </form>
+
+    </div>
+</div>
+{% endblock %}

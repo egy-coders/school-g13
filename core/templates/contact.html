@@ -4,19 +4,22 @@
 <h1>Contact Us</h1>
 <div class="container d-flex justify-content-center p-5">
     <div class="container">
-        <form action="">
-            <div>
-                <label for="name">Username</label>
-                <input type="text" placeholder="Enter Your Name">
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <!-- <div class="form-group my-2">
+                <label for="">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter your full name" required>
             </div>
-            <div>
-                <label for="name">Your Message</label>
-                <textarea name="message" id="" rows="2" placeholder="Enter Your Message"></textarea>
+            <div class="form-group my-2">
+                <label for="">email</label>
+                <input type="email" name="email" class="form-control" placeholder="i.e. faird@example.com">
             </div>
-            <div>
-                <label for="name">Your Message</label>
-                <select name="" id=""></select>
-            </div>
+            <div class="form-group my-2">
+                <label for="">Message</label>
+                <textarea name="message" class="form-control" rows="2"></textarea>
+            </div> -->
+            <button type="submit" class="btn btn-primary">Send</button>
         </form>
     </div>
     <br>

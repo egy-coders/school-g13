@@ -45,6 +45,7 @@ class Course(models.Model): # Courses Table in database core_course
     level = models.CharField(max_length=200, choices=LEVEL_CHOICES)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00, null=True, blank=True) # 159.99 $ | Decimals digits
     pub_date = models.DateField(null=True, blank=True)
+    featured = models.BooleanField(default=False) # True, False
 
     image = models.ImageField(upload_to='courses', default='default.png', blank=True) # png, jpg | max_size: 2MB
 
@@ -98,3 +99,13 @@ class Enrollment(models.Model):
 #     phone = 
 #     image = 
 #     student = models.OneToOneField(Student)
+
+
+class Contact(models.Model):
+    username = models.CharField(max_length=200)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True) # timezone.now()
+
+    def __str__(self):
+        return f"{self.username} - {self.created_at}"

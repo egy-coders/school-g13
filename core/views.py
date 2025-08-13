@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import *
 from .forms import *
+from django.contrib import messages
 
 # from django.shortcuts import HttpResponse
 
@@ -75,8 +76,41 @@ def about(request):
 
 
 def contact(request):
+    if request.method == 'POST':
+        # legacy way - html
+        # username = request.POST.get('username')
+        # email = request.POST.get('email')
+        # message = request.POST.get('message')
+
+        # if username is None:
+        #     return HttpResponse("username cannot be empty")
+        
+        # Contact.objects.create(
+        #     username=username,
+        #     email=email,
+        #     message=message,
+        # )
+
+        # return redirect('home')
+
+        # django forms way
+
+        form = ContactForm(request.POST)
+        if form.is_valid(): 
+            form.save()
+            messages.success(request, 'Yout request submitted successfully!') # tags = success
+            return redirect('home')
+        else:
+            messages.error(request, 'Failed to submit!') # bootstrap class = danger
+            return redirect('contact')
+
+    else:
+        form = ContactForm()
+
+
     context = {
         'page_title':'Contact Us',
+        'form':form
     }
     
     return render(request, 'contact.html', context)
@@ -115,9 +149,11 @@ def create_course(request):
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
-            # print(form.cleaned_data.items)
+            messages.success(request, 'New Course Created Successully')
             form.save()
-        return redirect('courses')
+            return redirect('courses')
+        else:
+            messages.error(request, "Failed to create new course")
     else:
         form = CourseForm()
     
@@ -126,11 +162,44 @@ def create_course(request):
         'cats':cats,
         'form':form
     }
-    return render(request, 'create_course.html', context)
+    return render(request, 'course_form.html', context)
+
 
 # Update Course
+def update_course(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    if request.method == 'POST':
+        form = CourseForm(request.POST, request.FILES, instance=course)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'{course.title} Updated Successfully')
+            return redirect('course', course_id)
+        else:
+            messages.error(request, 'Failed to update')
+    else:
+        form = CourseForm(instance=course)
+
+    context = {
+        'form':form,
+        'course':course
+    }
+
+    return render(request, 'course_form.html', context)
 
 # Delete Course
+def delete_course(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+
+    if request.method == 'POST':
+        course.delete()
+        messages.info(request, 'Course Delete Succesfully')
+        return redirect('courses')
+    
+    context = {
+        'course':course,
+    }
+    
+    return render(request, 'confirm_delete.html', context)
 
 
 def faqs(request):
